@@ -6,12 +6,12 @@ from pyspark.sql.functions import udf, col
 from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format
 
 
-"""config = configparser.ConfigParser()
+config = configparser.ConfigParser()
 config.read('dl.cfg')
 
 os.environ['AWS_ACCESS_KEY_ID']=config["aws"]['AWS_ACCESS_KEY_ID']
 os.environ['AWS_SECRET_ACCESS_KEY']=config["aws"]['AWS_SECRET_ACCESS_KEY']
-os.environ['AWS_REGION']=config["aws"]['AWS_REGION']"""
+#os.environ['AWS_REGION']=config["aws"]['AWS_REGION']
 
 def create_spark_session():
     spark = SparkSession \
@@ -31,14 +31,14 @@ def process_song_data(spark, input_data, output_data):
     # extract columns to create songs table
     songs_table = df.select(["song_id", "title", "artist_id", "year", "duration"])
     
-    """# write songs table to parquet files partitioned by year and artist
+    # write songs table to parquet files partitioned by year and artist
     songs_table.write.parquet(path = output_parquet_data + "songs.parquet", mode = "overwrite")
 
     # extract columns to create artists table
     artists_table = df.select(["artist_id", "name", "location", "lattitude", "longitude"])
     
     # write artists table to parquet files
-    artists_table.write.parquet(path = output_data + "artists.parquet", mode = "overwrite")"""
+    artists_table.write.parquet(path = output_data + "artists.parquet", mode = "overwrite")
 
 
 def process_log_data(spark, input_data, output_data):
@@ -107,7 +107,7 @@ def main():
     output_data = "s3a://uda-tupras/project4-out/"
     
     process_song_data(spark, input_data, output_data)    
-    #process_log_data(spark, input_data, output_data)
+    process_log_data(spark, input_data, output_data)
 
 
 if __name__ == "__main__":
