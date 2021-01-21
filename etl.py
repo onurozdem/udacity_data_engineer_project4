@@ -84,7 +84,7 @@ def process_log_data(spark, input_data, output_data):
     # extract columns from joined song and log datasets to create songplays table 
     songplays_table = df.alias('logs').join(song_df.alias('songs'),col('log.artist') == col('songs.artist_name'))
     
-    songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
+    #songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
     
     songplays_table = songplays_table.select(col('log_df.datetime').alias('start_time'),
                                              col('log_df.userId').alias('user_id'),
