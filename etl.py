@@ -14,6 +14,16 @@ os.environ['AWS_SECRET_ACCESS_KEY']=config["aws"]['AWS_SECRET_ACCESS_KEY']
 #os.environ['AWS_REGION']=config["aws"]['AWS_REGION']
 
 def create_spark_session():
+    """
+    This function create Spark Session for usage of Spark.
+
+    Parameters:
+    This function don't take any argument.
+
+    Returns:
+    SparkSession: Session of Spark env. connection 
+
+    """
     spark = SparkSession \
         .builder \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.0") \
@@ -22,6 +32,14 @@ def create_spark_session():
 
 
 def process_song_data(spark, input_data, output_data):
+    """
+    This function prepare songs and artist tables data and load to AWS S3 bucket on parquet format(without data duplication).
+
+    Parameters:
+    spark (SparkSession): Session of Spark env. connection 
+    input_data (string): Description of arg1
+    output_data (string): Description of arg1
+    """
     # get filepath to song data file
     song_data = "{}/song_data/*/*/*".format(input_data)
     
@@ -42,6 +60,15 @@ def process_song_data(spark, input_data, output_data):
 
 
 def process_log_data(spark, input_data, output_data):
+    """
+    This function prepare users, time and songplays tables data and load to AWS S3 bucket on parquet format(without data duplication).
+
+    Parameters:
+    spark (SparkSession): Session of Spark env. connection 
+    input_data (string): Description of arg1
+    output_data (string): Description of arg1
+
+    """
     # get filepath to log data file
     log_data = "{}/log-data/*".format(input_data)
 
@@ -102,6 +129,9 @@ def process_log_data(spark, input_data, output_data):
 
 
 def main():
+    """
+    This function is main block of etl process. All process execute sequentially. Don't take any argument and return value.
+    """
     spark = create_spark_session()
     input_data = "s3a://udacity-dend/"
     output_data = "s3a://udacity-dend/project4-out/"
