@@ -12,6 +12,23 @@ This project working with two datasets that reside in S3. Here are the S3 links 
 Song data: s3://udacity-dend/song_data/
 Log data: s3://udacity-dend/log-data/
 
+## Schema for Song Play Analysis
+Using the song and log datasets, you'll need to create a star schema optimized for queries on song play analysis. This includes the following tables.
+
+### Fact Table
+1. songplays - records in log data associated with song plays i.e. records with page NextSong
+   * songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
+
+### Dimension Tables
+1. users - users in the app
+   * user_id, first_name, last_name, gender, level
+2. songs - songs in music database
+   * song_id, title, artist_id, year, duration
+3. artists - artists in music database
+   * artist_id, name, location, lattitude, longitude
+4. time - timestamps of records in songplays broken down into specific units
+   * start_time, hour, day, week, month, year, weekday
+
 ## ETL Pipeline
 In this project, the datas is located on S3 buckets. You must run just etl process, loading data from S3 and processed data transform to S3 again in dimensional format.
 
